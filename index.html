@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page with Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .todo-list-section, .main-section {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .todo-list-section {
+            background-color: #f9f9f9;
+            border-right: 1px solid #ddd;
+        }
+        .main-section {
+            background-color: #fff;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .todo-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #e7f3fe;
+            border: 1px solid #b3d4fc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="todo-list-section">
+            <h2>Todo List</h2>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="Add a new task" required>
+                <button type="submit">Add</button>
+            </form>
+            <ul id="todo-list">
+                <!-- Todo items will appear here -->
+            </ul>
+        </div>
+        <div class="main-section">
+            <h2>Task Details</h2>
+            <div id="task-details">
+                <!-- Task details will appear here -->
+                <p>Select a task to view details.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const todoForm = document.getElementById('todo-form');
+        const todoInput = document.getElementById('todo-input');
+        const todoList = document.getElementById('todo-list');
+        const taskDetails = document.getElementById('task-details');
+
+        todoForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const taskText = todoInput.value.trim();
+            if (taskText) {
+                const listItem = document.createElement('li');
+                listItem.textContent = taskText;
+                listItem.classList.add('todo-item');
+                listItem.addEventListener('click', function() {
+                    taskDetails.innerHTML = `<h3>Task Details</h3><p>${taskText}</p>`;
+                });
+                todoList.appendChild(listItem);
+                todoInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
