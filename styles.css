@@ -68,6 +68,13 @@ button {
 button:hover {
     background-color: #005f99;
 }
+button.cancel {
+    background-color: #ccc;
+    color: black;
+}
+button.cancel:hover {
+    background-color: #999;
+}
 ul {
     list-style-type: none;
     padding: 0;

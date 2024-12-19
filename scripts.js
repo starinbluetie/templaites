@@ -88,7 +88,7 @@ cancelEditButton.addEventListener('click', function() {
 });
 
 document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && editTemplateSection.style.display === 'block') {
         collapseEditSection();
     }
 });
