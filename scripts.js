@@ -13,6 +13,7 @@ const deleteTemplateButton = document.getElementById('delete-template-button');
 const versionHistorySection = document.getElementById('version-history');
 const versionList = document.getElementById('version-list');
 const restoreVersionButton = document.getElementById('restore-version-button');
+const cancelEditButton = document.getElementById('cancel-edit-button');
 
 let templates = JSON.parse(localStorage.getItem('templates')) || [];
 let currentTemplate = null;
@@ -48,6 +49,12 @@ function displayTemplateDetails(template) {
     });
 }
 
+function collapseEditSection() {
+    editTemplateSection.style.display = 'none';
+    versionHistorySection.style.display = 'none';
+    currentTemplate = null;
+}
+
 templateForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newTemplate = {
@@ -76,13 +83,22 @@ saveChangesButton.addEventListener('click', function() {
     }
 });
 
+cancelEditButton.addEventListener('click', function() {
+    collapseEditSection();
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        collapseEditSection();
+    }
+});
+
 deleteTemplateButton.addEventListener('click', function() {
     if (currentTemplate) {
         templates = templates.filter(template => template !== currentTemplate);
         saveTemplates();
         renderTemplateList();
-        editTemplateSection.style.display = 'none';
-        versionHistorySection.style.display = 'none';
+        collapseEditSection();
     }
 });
 
