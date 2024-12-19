@@ -70,6 +70,13 @@ editPromptListInput.addEventListener('input', function() {
     adjustTextareaHeight(editPromptListInput);
 });
 
+editPromptListInput.addEventListener('focus', function(event) {
+    if (promptListInput.value.trim() === '') {
+        promptListInput.value = '1. ';
+    }
+    adjustTextareaHeight(promptListInput);
+});
+
 saveChangesButton.addEventListener('click', function() {
     if (currentTemplate) {
         currentTemplate.versions.push({
