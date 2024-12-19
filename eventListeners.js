@@ -1,4 +1,4 @@
-import { templates, saveTemplates } from './storage.js';
+import { templates, saveTemplates, removeTemplate } from './storage.js';
 import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
 import { currentTemplate, setCurrentTemplate } from './state.js';
 
@@ -90,10 +90,8 @@ saveChangesButton.addEventListener('click', function() {
 
 deleteTemplateButton.addEventListener('click', function() {
     if (currentTemplate) {
-        const index = templates.indexOf(currentTemplate);
-        if (index > -1) {
-            templates.splice(index, 1);
-            saveTemplates();
+        if (removeTemplate(currentTemplate)) {
+            setCurrentTemplate(null);
             renderTemplateList(templateList);
             collapseEditSection();
         }
@@ -102,10 +100,8 @@ deleteTemplateButton.addEventListener('click', function() {
 
 deleteTemplateButtonMain.addEventListener('click', function() {
     if (currentTemplate) {
-        const index = templates.indexOf(currentTemplate);
-        if (index > -1) {
-            templates.splice(index, 1);
-            saveTemplates();
+        if (removeTemplate(currentTemplate)) {
+            setCurrentTemplate(null);
             renderTemplateList(templateList);
             collapseEditSection();
         }
