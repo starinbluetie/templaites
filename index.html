@@ -11,8 +11,15 @@
         <h1>Organiza tus prompts y maximiza ChatGPT</h1>
         <p>Crea, organiza y comparte tus prompts fácilmente</p>
     </header>
+    <nav>
+        <ul class="tab-nav">
+            <li class="tab-item" data-tab="create-template">Crear Plantilla</li>
+            <li class="tab-item" data-tab="organize-templates">Organizar Plantillas</li>
+            <li class="tab-item" data-tab="version-history">Historial de Versiones</li>
+        </ul>
+    </nav>
     <main>
-        <section id="create-template">
+        <section id="create-template" class="tab-content">
             <h2>Creación de Plantillas</h2>
             <form id="template-form">
                 <textarea id="prompt-input" placeholder="Escribe tu prompt aquí" required></textarea>
@@ -20,7 +27,7 @@
                 <button type="submit">Guardar</button>
             </form>
         </section>
-        <section id="edit-template" style="display:none;">
+        <section id="edit-template" class="tab-content" style="display:none;">
             <h2>Edición de Plantillas</h2>
             <div id="template-preview">
                 <!-- Vista previa del prompt -->
@@ -30,7 +37,7 @@
             <button id="save-changes-button">Guardar Cambios</button>
             <button id="delete-template-button">Eliminar</button>
         </section>
-        <section id="organize-templates">
+        <section id="organize-templates" class="tab-content" style="display:none;">
             <h2>Organización</h2>
             <input type="text" id="filter-input" placeholder="Filtrar por etiquetas/categorías">
             <select id="sort-select">
@@ -41,7 +48,7 @@
                 <!-- Lista de plantillas -->
             </ul>
         </section>
-        <section id="version-history" style="display:none;">
+        <section id="version-history" class="tab-content" style="display:none;">
             <h2>Historial de Versiones</h2>
             <ul id="version-list">
                 <!-- Lista de versiones anteriores -->

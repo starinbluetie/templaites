@@ -116,4 +116,17 @@ sortSelect.addEventListener('change', function() {
     renderTemplateList();
 });
 
+document.querySelectorAll('.tab-item').forEach(item => {
+    item.addEventListener('click', function() {
+        document.querySelectorAll('.tab-content').forEach(section => {
+            section.style.display = 'none';
+        });
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(this.dataset.tab).style.display = 'block';
+        this.classList.add('active');
+    });
+});
+
 renderTemplateList();
