@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page with Todo List</title>
+    <title>Home Page with Template List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,47 +37,84 @@
             background-color: #e7f3fe;
             border: 1px solid #b3d4fc;
             border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .edit-button, .delete-button {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .category {
+            font-size: 0.9em;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="todo-list-section">
-            <h2>Todo List</h2>
+            <h2>Template List</h2>
             <form id="todo-form">
-                <input type="text" id="todo-input" placeholder="Add a new task" required>
+                <input type="text" id="todo-input" placeholder="Add a new template" required>
+                <input type="text" id="category-input" placeholder="Category" required>
                 <button type="submit">Add</button>
             </form>
             <ul id="todo-list">
-                <!-- Todo items will appear here -->
+                <!-- Template items will appear here -->
             </ul>
         </div>
         <div class="main-section">
-            <h2>Task Details</h2>
+            <h2>Template Details</h2>
             <div id="task-details">
-                <!-- Task details will appear here -->
-                <p>Select a task to view details.</p>
+                <!-- Template details will appear here -->
+                <p>Select a template to view details.</p>
             </div>
         </div>
     </div>
     <script>
         const todoForm = document.getElementById('todo-form');
         const todoInput = document.getElementById('todo-input');
+        const categoryInput = document.getElementById('category-input');
         const todoList = document.getElementById('todo-list');
         const taskDetails = document.getElementById('task-details');
 
         todoForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const taskText = todoInput.value.trim();
-            if (taskText) {
+            const categoryText = categoryInput.value.trim();
+            if (taskText && categoryText) {
                 const listItem = document.createElement('li');
-                listItem.textContent = taskText;
                 listItem.classList.add('todo-item');
+                listItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <span class="category">${categoryText}</span>
+                    <button class="edit-button">Edit</button>
+                    <button class="delete-button">Delete</button>
+                `;
                 listItem.addEventListener('click', function() {
-                    taskDetails.innerHTML = `<h3>Task Details</h3><p>${taskText}</p>`;
+                    taskDetails.innerHTML = `<h3>Template Details</h3><p>${taskText}</p><p>Category: ${categoryText}</p>`;
+                });
+                listItem.querySelector('.edit-button').addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const newTaskText = prompt('Edit template name:', taskText);
+                    const newCategoryText = prompt('Edit category:', categoryText);
+                    if (newTaskText && newCategoryText) {
+                        listItem.querySelector('span').textContent = newTaskText;
+                        listItem.querySelector('.category').textContent = newCategoryText;
+                        taskDetails.innerHTML = `<h3>Template Details</h3><p>${newTaskText}</p><p>Category: ${newCategoryText}</p>`;
+                    }
+                });
+                listItem.querySelector('.delete-button').addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    if (confirm('Are you sure you want to delete this template?')) {
+                        listItem.remove();
+                        taskDetails.innerHTML = '<p>Select a template to view details.</p>';
+                    }
                 });
                 todoList.appendChild(listItem);
                 todoInput.value = '';
+                categoryInput.value = '';
             }
         });
     </script>
