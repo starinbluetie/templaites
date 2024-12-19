@@ -57,6 +57,12 @@ textarea, input[type="text"], input[type="email"] {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+input[type="text"].prompt-list {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 button {
     padding: 10px;
     border: none;

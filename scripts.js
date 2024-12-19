@@ -1,12 +1,13 @@
 const templateForm = document.getElementById('template-form');
-const promptInput = document.getElementById('prompt-input');
+const templateInput = document.getElementById('template-input');
 const tagsInput = document.getElementById('tags-input');
+const promptListInput = document.getElementById('prompt-list-input');
 const templateList = document.getElementById('template-list');
 const filterInput = document.getElementById('filter-input');
 const sortSelect = document.getElementById('sort-select');
 const editTemplateSection = document.getElementById('edit-template');
 const templatePreview = document.getElementById('template-preview');
-const editPromptInput = document.getElementById('edit-prompt-input');
+const editTemplateInput = document.getElementById('edit-template-input');
 const editTagsInput = document.getElementById('edit-tags-input');
 const saveChangesButton = document.getElementById('save-changes-button');
 const deleteTemplateButton = document.getElementById('delete-template-button');
@@ -26,7 +27,7 @@ function renderTemplateList() {
     templateList.innerHTML = '';
     templates.forEach(template => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${template.prompt} (${template.tags})`;
+        listItem.textContent = `${template.template} (${template.tags})`;
         listItem.addEventListener('click', () => {
             currentTemplate = template;
             displayTemplateDetails(template);
@@ -37,14 +38,14 @@ function renderTemplateList() {
 
 function displayTemplateDetails(template) {
     editTemplateSection.style.display = 'block';
-    templatePreview.innerHTML = `<p>${template.prompt}</p><p>${template.tags}</p>`;
-    editPromptInput.value = template.prompt;
+    templatePreview.innerHTML = `<p>${template.template}</p><p>${template.tags}</p>`;
+    editTemplateInput.value = template.template;
     editTagsInput.value = template.tags;
     versionHistorySection.style.display = 'block';
     versionList.innerHTML = '';
     template.versions.forEach((version, index) => {
         const versionItem = document.createElement('li');
-        versionItem.textContent = `Version ${index + 1}: ${version.prompt} (${version.tags})`;
+        versionItem.textContent = `Version ${index + 1}: ${version.template} (${version.tags})`;
         versionList.appendChild(versionItem);
     });
 }
@@ -58,24 +59,38 @@ function collapseEditSection() {
 templateForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newTemplate = {
-        prompt: promptInput.value,
+        template: templateInput.value,
         tags: tagsInput.value,
+        promptList: [],
         versions: []
     };
     templates.push(newTemplate);
     saveTemplates();
     renderTemplateList();
-    promptInput.value = '';
+    templateInput.value = '';
     tagsInput.value = '';
+});
+
+promptListInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        if (currentTemplate) {
+            currentTemplate.promptList.push(promptListInput.value);
+            saveTemplates();
+            displayTemplateDetails(currentTemplate);
+            promptListInput.value = '';
+        }
+    }
 });
 
 saveChangesButton.addEventListener('click', function() {
     if (currentTemplate) {
         currentTemplate.versions.push({
-            prompt: currentTemplate.prompt,
-            tags: currentTemplate.tags
+            template: currentTemplate.template,
+            tags: currentTemplate.tags,
+            promptList: [...currentTemplate.promptList]
         });
-        currentTemplate.prompt = editPromptInput.value;
+        currentTemplate.template = editTemplateInput.value;
         currentTemplate.tags = editTagsInput.value;
         saveTemplates();
         renderTemplateList();
@@ -105,8 +120,9 @@ deleteTemplateButton.addEventListener('click', function() {
 restoreVersionButton.addEventListener('click', function() {
     if (currentTemplate && currentTemplate.versions.length > 0) {
         const lastVersion = currentTemplate.versions.pop();
-        currentTemplate.prompt = lastVersion.prompt;
+        currentTemplate.template = lastVersion.template;
         currentTemplate.tags = lastVersion.tags;
+        currentTemplate.promptList = lastVersion.promptList;
         saveTemplates();
         renderTemplateList();
         displayTemplateDetails(currentTemplate);
@@ -116,7 +132,7 @@ restoreVersionButton.addEventListener('click', function() {
 filterInput.addEventListener('input', function() {
     const filterText = filterInput.value.toLowerCase();
     const filteredTemplates = templates.filter(template => 
-        template.prompt.toLowerCase().includes(filterText) || 
+        template.template.toLowerCase().includes(filterText) || 
         template.tags.toLowerCase().includes(filterText)
     );
     renderTemplateList(filteredTemplates);
@@ -127,7 +143,7 @@ sortSelect.addEventListener('change', function() {
     if (sortBy === 'date') {
         templates.sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (sortBy === 'name') {
-        templates.sort((a, b) => a.prompt.localeCompare(b.prompt));
+        templates.sort((a, b) => a.template.localeCompare(b.template));
     }
     renderTemplateList();
 });
