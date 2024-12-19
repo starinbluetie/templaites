@@ -1,6 +1,17 @@
 import { templates, saveTemplates } from './storage.js';
 import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
 
+const templateForm = document.getElementById('template-form');
+const templateInput = document.getElementById('template-input');
+const tagsInput = document.getElementById('tags-input');
+const promptListInput = document.getElementById('prompt-list-input');
+const saveChangesButton = document.getElementById('save-changes-button');
+const deleteTemplateButton = document.getElementById('delete-template-button');
+const restoreVersionButton = document.getElementById('restore-version-button');
+const cancelEditButton = document.getElementById('cancel-edit-button');
+const filterInput = document.getElementById('filter-input');
+const sortSelect = document.getElementById('sort-select');
+
 templateForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newTemplate = {
