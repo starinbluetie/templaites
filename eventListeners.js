@@ -67,6 +67,10 @@ promptListInput.addEventListener('keydown', function(event) {
     }
 });
 
+editPromptListInput.addEventListener('input', function() {
+    adjustTextareaHeight(editPromptListInput);
+});
+
 saveChangesButton.addEventListener('click', function() {
     if (currentTemplate) {
         currentTemplate.versions.push({
@@ -83,21 +87,21 @@ saveChangesButton.addEventListener('click', function() {
     }
 });
 
+deleteTemplateButton.addEventListener('click', function() {
+    if (currentTemplate) {
+        templates = templates.filter(template => template !== currentTemplate);
+        saveTemplates();
+        renderTemplateList(templateList);
+        collapseEditSection();
+    }
+});
+
 cancelEditButton.addEventListener('click', function() {
     collapseEditSection();
 });
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape' && editTemplateSection.style.display === 'block') {
-        collapseEditSection();
-    }
-});
-
-deleteTemplateButton.addEventListener('click', function() {
-    if (currentTemplate) {
-        templates = templates.filter(template => template !== currentTemplate);
-        saveTemplates();
-        renderTemplateList(templateList);
         collapseEditSection();
     }
 });
