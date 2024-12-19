@@ -13,6 +13,10 @@ const restoreVersionButton = document.getElementById('restore-version-button');
 const cancelEditButton = document.getElementById('cancel-edit-button');
 const filterInput = document.getElementById('filter-input');
 const sortSelect = document.getElementById('sort-select');
+const editTemplateInput = document.getElementById('edit-template-input');
+const editTagsInput = document.getElementById('edit-tags-input');
+const editPromptListInput = document.getElementById('edit-prompt-list-input');
+const editTemplateSection = document.getElementById('edit-template');
 
 templateForm.addEventListener('submit', function(event) {
     event.preventDefault();
