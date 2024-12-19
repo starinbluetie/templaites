@@ -1,3 +1,6 @@
+import { templates, saveTemplates } from './storage.js';
+import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
+
 templateForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const newTemplate = {

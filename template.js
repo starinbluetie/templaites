@@ -1,4 +1,6 @@
-function renderTemplateList(filteredTemplates = templates) {
+import { templates } from './storage.js';
+
+export function renderTemplateList(filteredTemplates = templates) {
     templateList.innerHTML = '';
     filteredTemplates.forEach(template => {
         const listItem = document.createElement('li');
@@ -11,7 +13,7 @@ function renderTemplateList(filteredTemplates = templates) {
     });
 }
 
-function displayTemplateDetails(template) {
+export function displayTemplateDetails(template) {
     editTemplateSection.style.display = 'block';
     templatePreview.innerHTML = `<p>${template.template}</p><p>${template.tags}</p>`;
     editTemplateInput.value = template.template;
@@ -25,7 +27,7 @@ function displayTemplateDetails(template) {
     });
 }
 
-function collapseEditSection() {
+export function collapseEditSection() {
     editTemplateSection.style.display = 'none';
     versionHistorySection.style.display = 'none';
     currentTemplate = null;

@@ -1,5 +1,5 @@
-let templates = JSON.parse(localStorage.getItem('templates')) || [];
+export let templates = JSON.parse(localStorage.getItem('templates')) || [];
 
-function saveTemplates() {
+export function saveTemplates() {
     localStorage.setItem('templates', JSON.stringify(templates));
 }
