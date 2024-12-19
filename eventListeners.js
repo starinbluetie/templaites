@@ -6,6 +6,7 @@ const templateForm = document.getElementById('template-form');
 const templateInput = document.getElementById('template-input');
 const tagsInput = document.getElementById('tags-input');
 const promptListInput = document.getElementById('prompt-list-input');
+const templateList = document.getElementById('template-list');
 const saveChangesButton = document.getElementById('save-changes-button');
 const deleteTemplateButton = document.getElementById('delete-template-button');
 const restoreVersionButton = document.getElementById('restore-version-button');
@@ -23,7 +24,7 @@ templateForm.addEventListener('submit', function(event) {
     };
     templates.push(newTemplate);
     saveTemplates();
-    renderTemplateList();
+    renderTemplateList(templateList);
     templateInput.value = '';
     tagsInput.value = '';
     promptListInput.value = '';
@@ -73,7 +74,7 @@ saveChangesButton.addEventListener('click', function() {
         currentTemplate.tags = editTagsInput.value;
         currentTemplate.promptList = promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item.trim()}`);
         saveTemplates();
-        renderTemplateList();
+        renderTemplateList(templateList);
         displayTemplateDetails(currentTemplate);
     }
 });
@@ -92,7 +93,7 @@ deleteTemplateButton.addEventListener('click', function() {
     if (currentTemplate) {
         templates = templates.filter(template => template !== currentTemplate);
         saveTemplates();
-        renderTemplateList();
+        renderTemplateList(templateList);
         collapseEditSection();
     }
 });
@@ -104,7 +105,7 @@ restoreVersionButton.addEventListener('click', function() {
         currentTemplate.tags = lastVersion.tags;
         currentTemplate.promptList = lastVersion.promptList;
         saveTemplates();
-        renderTemplateList();
+        renderTemplateList(templateList);
         displayTemplateDetails(currentTemplate);
     }
 });
@@ -115,7 +116,7 @@ filterInput.addEventListener('input', function() {
         template.template.toLowerCase().includes(filterText) || 
         template.tags.toLowerCase().includes(filterText)
     );
-    renderTemplateList(filteredTemplates);
+    renderTemplateList(templateList, filteredTemplates);
 });
 
 sortSelect.addEventListener('change', function() {
@@ -125,7 +126,7 @@ sortSelect.addEventListener('change', function() {
     } else if (sortBy === 'name') {
         templates.sort((a, b) => a.template.localeCompare(b.template));
     }
-    renderTemplateList();
+    renderTemplateList(templateList);
 });
 
 document.querySelectorAll('.tab-item').forEach(item => {

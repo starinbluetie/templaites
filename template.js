@@ -1,7 +1,6 @@
 import { templates } from './storage.js';
 import { currentTemplate, setCurrentTemplate } from './state.js';
 
-const templateList = document.getElementById('template-list');
 const editTemplateSection = document.getElementById('edit-template');
 const templatePreview = document.getElementById('template-preview');
 const editTemplateInput = document.getElementById('edit-template-input');
@@ -9,7 +8,7 @@ const editTagsInput = document.getElementById('edit-tags-input');
 const versionHistorySection = document.getElementById('version-history');
 const versionList = document.getElementById('version-list');
 
-export function renderTemplateList(filteredTemplates = templates) {
+export function renderTemplateList(templateList, filteredTemplates = templates) {
     templateList.innerHTML = '';
     filteredTemplates.forEach(template => {
         const listItem = document.createElement('li');

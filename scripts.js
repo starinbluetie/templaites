@@ -25,4 +25,4 @@ const cancelEditButton = document.getElementById('cancel-edit-button');
 let currentTemplate = null;
 
 // Initialize the application
-renderTemplateList();
+renderTemplateList(templateList);
