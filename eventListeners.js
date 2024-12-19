@@ -18,20 +18,19 @@ const editTagsInput = document.getElementById('edit-tags-input');
 const editPromptListInput = document.getElementById('edit-prompt-list-input');
 const editTemplateSection = document.getElementById('edit-template');
 
-templateForm.addEventListener('submit', function(event) {
+templateForm.addEventListener('submit', event => {
     event.preventDefault();
     const newTemplate = {
-        template: templateInput.value,
-        tags: tagsInput.value,
-        promptList: promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item.trim()}`),
-        versions: []
+        template: templateInput.value.trim(),
+        tags: tagsInput.value.trim(),
+        promptList: promptListInput.value.trim().split('\n').map((item, index) => `${index + 1}. ${item.trim()}`),
+        versions: [],
+        date: new Date().toISOString()
     };
     templates.push(newTemplate);
     saveTemplates();
     renderTemplateList(templateList);
-    templateInput.value = '';
-    tagsInput.value = '';
-    promptListInput.value = '';
+    templateForm.reset();
 });
 
 function adjustTextareaHeight(textarea) {
@@ -119,7 +118,7 @@ restoreVersionButton.addEventListener('click', function() {
     }
 });
 
-filterInput.addEventListener('input', function() {
+filterInput.addEventListener('input', () => {
     const filterText = filterInput.value.toLowerCase();
     const filteredTemplates = templates.filter(template => 
         template.template.toLowerCase().includes(filterText) || 
@@ -128,7 +127,7 @@ filterInput.addEventListener('input', function() {
     renderTemplateList(templateList, filteredTemplates);
 });
 
-sortSelect.addEventListener('change', function() {
+sortSelect.addEventListener('change', () => {
     const sortBy = sortSelect.value;
     if (sortBy === 'date') {
         templates.sort((a, b) => new Date(b.date) - new Date(a.date));

@@ -5,7 +5,7 @@ export function saveTemplates() {
 }
 
 export function removeTemplate(template) {
-    const index = templates.indexOf(template);
+    const index = templates.findIndex(t => t === template);
     if (index > -1) {
         templates.splice(index, 1);
         saveTemplates();
