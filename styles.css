@@ -58,6 +58,8 @@ textarea, input[type="text"], input[type="email"] {
     border-radius: 4px;
     resize: vertical;
     overflow: hidden;
+    display: block; /* Ensure each input is on its own row */
+    width: 100%; /* Ensure full width */
 }
 
 textarea.prompt-list {
