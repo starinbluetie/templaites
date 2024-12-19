@@ -32,6 +32,7 @@ templateForm.addEventListener('submit', event => {
     saveTemplates();
     renderTemplateList(templateList);
     templateForm.reset();
+    promptListInput.style.height = ''; // Reset the height
 });
 
 promptListInput.addEventListener('input', function() {
