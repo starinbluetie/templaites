@@ -76,7 +76,8 @@ templateInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         const lines = templateInput.value.split('\n');
-        const newLineIndex = lines.length + 1;
+        if (lines[lines.length - 1].trim() === '') return;
+        const newLineIndex = lines.length;
         lines.push(`${newLineIndex}. `);
         templateInput.value = lines.join('\n');
         const cursorPosition = templateInput.value.length;
@@ -88,6 +89,7 @@ promptListInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         const lines = promptListInput.value.split('\n');
+        if (lines[lines.length - 1].trim() === '') return;
         const lastLine = lines[lines.length - 1];
         const lastLineNumber = parseInt(lastLine.split('.')[0], 10) || 0;
         const newLineIndex = lastLineNumber + 1;
