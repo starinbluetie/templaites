@@ -1,5 +1,6 @@
 import { templates } from './storage.js';
 import { currentTemplate, setCurrentTemplate } from './state.js';
+import { adjustTextareaHeight } from './utils.js';
 
 const editTemplateSection = document.getElementById('edit-template');
 const templatePreview = document.getElementById('template-preview');
@@ -28,6 +29,7 @@ export function displayTemplateDetails(template) {
     editTemplateInput.value = template.template;
     editTagsInput.value = template.tags;
     editPromptListInput.value = template.promptList.map(item => item.replace(/^\d+\.\s*/, '')).join('\n');
+    adjustTextareaHeight(editPromptListInput);
     versionHistorySection.style.display = 'block';
     versionList.innerHTML = '';
     template.versions.forEach((version, index) => {

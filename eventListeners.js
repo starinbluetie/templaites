@@ -1,6 +1,7 @@
 import { templates, saveTemplates, removeTemplate } from './storage.js';
 import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
 import { currentTemplate, setCurrentTemplate } from './state.js';
+import { adjustTextareaHeight } from './utils.js';
 
 const templateForm = document.getElementById('template-form');
 const templateInput = document.getElementById('template-input');
@@ -32,11 +33,6 @@ templateForm.addEventListener('submit', event => {
     renderTemplateList(templateList);
     templateForm.reset();
 });
-
-function adjustTextareaHeight(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-}
 
 promptListInput.addEventListener('input', function() {
     adjustTextareaHeight(promptListInput);
