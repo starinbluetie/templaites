@@ -14,10 +14,20 @@ templateForm.addEventListener('submit', function(event) {
     promptListInput.value = '';
 });
 
+function adjustTextareaHeight(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+promptListInput.addEventListener('input', function() {
+    adjustTextareaHeight(promptListInput);
+});
+
 promptListInput.addEventListener('focus', function(event) {
     if (promptListInput.value.trim() === '') {
         promptListInput.value = '1. ';
     }
+    adjustTextareaHeight(promptListInput);
 });
 
 promptListInput.addEventListener('keydown', function(event) {

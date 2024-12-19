@@ -56,6 +56,8 @@ textarea, input[type="text"], input[type="email"] {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    resize: vertical;
+    overflow: hidden;
 }
 input[type="text"].prompt-list {
     margin-bottom: 10px;
