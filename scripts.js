@@ -76,8 +76,9 @@ templateInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         const lines = templateInput.value.split('\n');
-        lines.push('');
-        templateInput.value = lines.map((line, index) => `${index + 1}. ${line}`).join('\n');
+        const newLineIndex = lines.length + 1;
+        lines.push(`${newLineIndex}. `);
+        templateInput.value = lines.join('\n');
         const cursorPosition = templateInput.value.length;
         templateInput.setSelectionRange(cursorPosition, cursorPosition);
     }
@@ -87,8 +88,9 @@ promptListInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         const lines = promptListInput.value.split('\n');
-        lines.push('');
-        promptListInput.value = lines.map((line, index) => `${index + 1}. ${line}`).join('\n');
+        const newLineIndex = lines.length + 1;
+        lines.push(`${newLineIndex}. `);
+        promptListInput.value = lines.join('\n');
         const cursorPosition = promptListInput.value.length;
         promptListInput.setSelectionRange(cursorPosition, cursorPosition);
     }
