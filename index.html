@@ -56,6 +56,9 @@
         .prompt-item {
             margin: 5px 0;
         }
+        .add-prompt-button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -79,6 +82,7 @@
                 <ol id="prompt-list" class="prompt-list">
                     <!-- Prompts will appear here -->
                 </ol>
+                <button id="add-prompt-button" class="add-prompt-button" style="display:none;">Add Prompt</button>
                 <button id="edit-template-button" style="display:none;">Edit Template</button>
             </div>
         </div>
@@ -91,6 +95,7 @@
         const taskDetails = document.getElementById('task-details');
         const promptList = document.getElementById('prompt-list');
         const editTemplateButton = document.getElementById('edit-template-button');
+        const addPromptButton = document.getElementById('add-prompt-button');
 
         function loadTemplates() {
             const templates = JSON.parse(localStorage.getItem('templates')) || [];
@@ -132,9 +137,19 @@
                 const promptItem = document.createElement('li');
                 promptItem.classList.add('prompt-item');
                 promptItem.textContent = prompt;
+                promptItem.addEventListener('click', function() {
+                    const newPromptText = prompt('Edit prompt:', prompt);
+                    if (newPromptText) {
+                        const promptIndex = template.prompts.indexOf(prompt);
+                        template.prompts[promptIndex] = newPromptText;
+                        saveTemplates(JSON.parse(localStorage.getItem('templates')).map(t => t.name === template.name ? template : t));
+                        displayTemplateDetails(template);
+                    }
+                });
                 promptList.appendChild(promptItem);
             });
             editTemplateButton.style.display = 'block';
+            addPromptButton.style.display = 'block';
             editTemplateButton.onclick = function() {
                 const newTaskText = prompt('Edit template name:', template.name);
                 const newCategoryText = prompt('Edit category:', template.category);
@@ -146,6 +161,14 @@
                     saveTemplates(updatedTemplates);
                     taskDetails.innerHTML = `<h3>Template Details</h3><p>${newTaskText}</p><p>Category: ${newCategoryText}</p>`;
                     loadTemplates();
+                }
+            };
+            addPromptButton.onclick = function() {
+                const newPromptText = prompt('Add new prompt:');
+                if (newPromptText) {
+                    template.prompts.push(newPromptText);
+                    saveTemplates(JSON.parse(localStorage.getItem('templates')).map(t => t.name === template.name ? template : t));
+                    displayTemplateDetails(template);
                 }
             };
         }
