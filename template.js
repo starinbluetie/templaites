@@ -5,6 +5,7 @@ const editTemplateSection = document.getElementById('edit-template');
 const templatePreview = document.getElementById('template-preview');
 const editTemplateInput = document.getElementById('edit-template-input');
 const editTagsInput = document.getElementById('edit-tags-input');
+const editPromptListInput = document.getElementById('edit-prompt-list-input');
 const versionHistorySection = document.getElementById('version-history');
 const versionList = document.getElementById('version-list');
 
@@ -26,6 +27,7 @@ export function displayTemplateDetails(template) {
     templatePreview.innerHTML = `<p>${template.template}</p><p>${template.tags}</p>`;
     editTemplateInput.value = template.template;
     editTagsInput.value = template.tags;
+    editPromptListInput.value = template.promptList.join('\n');
     versionHistorySection.style.display = 'block';
     versionList.innerHTML = '';
     template.versions.forEach((version, index) => {
