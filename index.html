@@ -84,6 +84,7 @@
                 </ol>
                 <button id="add-prompt-button" class="add-prompt-button" style="display:none;">Add Prompt</button>
                 <button id="edit-template-button" style="display:none;">Edit Template</button>
+                <button id="save-template-button" style="display:none;">Save Template</button>
             </div>
         </div>
     </div>
@@ -96,6 +97,9 @@
         const promptList = document.getElementById('prompt-list');
         const editTemplateButton = document.getElementById('edit-template-button');
         const addPromptButton = document.getElementById('add-prompt-button');
+        const saveTemplateButton = document.getElementById('save-template-button');
+
+        let currentTemplate = null;
 
         function loadTemplates() {
             const templates = JSON.parse(localStorage.getItem('templates')) || [];
@@ -131,6 +135,7 @@
         }
 
         function displayTemplateDetails(template) {
+            currentTemplate = template;
             taskDetails.innerHTML = `<h3>Template Details</h3><p>${template.name}</p><p>Category: ${template.category}</p>`;
             promptList.innerHTML = '';
             template.prompts.forEach(prompt => {
@@ -150,6 +155,7 @@
             });
             editTemplateButton.style.display = 'block';
             addPromptButton.style.display = 'block';
+            saveTemplateButton.style.display = 'none';
             editTemplateButton.onclick = function() {
                 const newTaskText = prompt('Edit template name:', template.name);
                 const newCategoryText = prompt('Edit category:', template.category);
