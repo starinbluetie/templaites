@@ -13,7 +13,6 @@ const deleteTemplateButton = document.getElementById('delete-template-button');
 const versionHistorySection = document.getElementById('version-history');
 const versionList = document.getElementById('version-list');
 const restoreVersionButton = document.getElementById('restore-version-button');
-const contactForm = document.getElementById('contact-form');
 
 let templates = JSON.parse(localStorage.getItem('templates')) || [];
 let currentTemplate = null;
@@ -96,12 +95,6 @@ restoreVersionButton.addEventListener('click', function() {
         renderTemplateList();
         displayTemplateDetails(currentTemplate);
     }
-});
-
-contactForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Mensaje enviado. Gracias por contactarnos.');
-    contactForm.reset();
 });
 
 filterInput.addEventListener('input', function() {
