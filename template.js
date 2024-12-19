@@ -1,4 +1,13 @@
 import { templates } from './storage.js';
+import { currentTemplate, setCurrentTemplate } from './state.js';
+
+const templateList = document.getElementById('template-list');
+const editTemplateSection = document.getElementById('edit-template');
+const templatePreview = document.getElementById('template-preview');
+const editTemplateInput = document.getElementById('edit-template-input');
+const editTagsInput = document.getElementById('edit-tags-input');
+const versionHistorySection = document.getElementById('version-history');
+const versionList = document.getElementById('version-list');
 
 export function renderTemplateList(filteredTemplates = templates) {
     templateList.innerHTML = '';
@@ -6,7 +15,7 @@ export function renderTemplateList(filteredTemplates = templates) {
         const listItem = document.createElement('li');
         listItem.textContent = `${template.template} (${template.tags})`;
         listItem.addEventListener('click', () => {
-            currentTemplate = template;
+            setCurrentTemplate(template);
             displayTemplateDetails(template);
         });
         templateList.appendChild(listItem);
@@ -30,5 +39,5 @@ export function displayTemplateDetails(template) {
 export function collapseEditSection() {
     editTemplateSection.style.display = 'none';
     versionHistorySection.style.display = 'none';
-    currentTemplate = null;
+    setCurrentTemplate(null);
 }

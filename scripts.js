@@ -1,6 +1,7 @@
 import { templates, saveTemplates } from './storage.js';
 import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
 import './eventListeners.js';
+import './state.js';
 // import './utils.js'; // Uncomment if utility functions are added
 
 const templateForm = document.getElementById('template-form');

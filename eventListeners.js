@@ -1,5 +1,6 @@
 import { templates, saveTemplates } from './storage.js';
 import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
+import { currentTemplate, setCurrentTemplate } from './state.js';
 
 const templateForm = document.getElementById('template-form');
 const templateInput = document.getElementById('template-input');
