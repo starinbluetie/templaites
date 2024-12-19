@@ -8,7 +8,6 @@ const tagsInput = document.getElementById('tags-input');
 const promptListInput = document.getElementById('prompt-list-input');
 const templateList = document.getElementById('template-list');
 const saveChangesButton = document.getElementById('save-changes-button');
-const deleteTemplateButton = document.getElementById('delete-template-button');
 const deleteTemplateButtonMain = document.getElementById('delete-template-button-main');
 const restoreVersionButton = document.getElementById('restore-version-button');
 const cancelEditButton = document.getElementById('cancel-edit-button');
@@ -85,16 +84,6 @@ saveChangesButton.addEventListener('click', function() {
         saveTemplates();
         renderTemplateList(templateList);
         displayTemplateDetails(currentTemplate);
-    }
-});
-
-deleteTemplateButton.addEventListener('click', function() {
-    if (currentTemplate) {
-        if (removeTemplate(currentTemplate)) {
-            setCurrentTemplate(null);
-            renderTemplateList(templateList);
-            collapseEditSection();
-        }
     }
 });
 

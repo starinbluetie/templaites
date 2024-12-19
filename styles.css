@@ -29,6 +29,7 @@ nav {
     padding: 10px 20px;
     cursor: pointer;
     color: white;
+    background: lightslategray;
 }
 .tab-item:hover, .tab-item.active {
     background-color: #005f99;
@@ -51,21 +52,23 @@ form {
     display: flex;
     flex-direction: column;
 }
-textarea, input[type="text"], input[type="email"] {
+
+textarea, input[type="text"] {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    resize: vertical;
     overflow: hidden;
     display: block; /* Ensure each input is on its own row */
-    width: 100%; /* Ensure full width */
+    width: 98.79%; /* Ensure full width */
+    resize: none; /* Prevent user from resizing */
+    height: auto; /* Allow height to adjust automatically */
 }
 
 textarea.prompt-list {
     white-space: pre;
     overflow-y: hidden; /* Hide vertical scrollbar */
-    width: 100%; /* Ensure full width */
+    width: 98.79%; /* width: 100%; Ensure full width */
 }
 
 input[type="text"].prompt-list {
