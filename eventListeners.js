@@ -30,10 +30,6 @@ promptListInput.addEventListener('focus', function(event) {
     adjustTextareaHeight(promptListInput);
 });
 
-promptListInput.addEventListener('input', function() {
-    adjustTextareaHeight(promptListInput);
-});
-
 promptListInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
@@ -50,11 +46,6 @@ promptListInput.addEventListener('keydown', function(event) {
         adjustTextareaHeight(promptListInput);
     }
 });
-
-function adjustTextareaHeight(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-}
 
 saveChangesButton.addEventListener('click', function() {
     if (currentTemplate) {
