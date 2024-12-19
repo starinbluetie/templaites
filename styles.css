@@ -59,6 +59,12 @@ textarea, input[type="text"], input[type="email"] {
     resize: vertical;
     overflow: hidden;
 }
+
+textarea.prompt-list {
+    white-space: pre;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+}
+
 input[type="text"].prompt-list {
     margin-bottom: 10px;
     padding: 10px;

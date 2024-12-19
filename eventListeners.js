@@ -3,7 +3,7 @@ templateForm.addEventListener('submit', function(event) {
     const newTemplate = {
         template: templateInput.value,
         tags: tagsInput.value,
-        promptList: promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item}`),
+        promptList: promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item.trim()}`),
         versions: []
     };
     templates.push(newTemplate);
@@ -30,6 +30,10 @@ promptListInput.addEventListener('focus', function(event) {
     adjustTextareaHeight(promptListInput);
 });
 
+promptListInput.addEventListener('input', function() {
+    adjustTextareaHeight(promptListInput);
+});
+
 promptListInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
@@ -43,8 +47,14 @@ promptListInput.addEventListener('keydown', function(event) {
         promptListInput.value = lines.join('\n');
         const cursorPosition = promptListInput.value.length;
         promptListInput.setSelectionRange(cursorPosition, cursorPosition);
+        adjustTextareaHeight(promptListInput);
     }
 });
+
+function adjustTextareaHeight(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
 
 saveChangesButton.addEventListener('click', function() {
     if (currentTemplate) {
@@ -55,7 +65,7 @@ saveChangesButton.addEventListener('click', function() {
         });
         currentTemplate.template = editTemplateInput.value;
         currentTemplate.tags = editTagsInput.value;
-        currentTemplate.promptList = promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item}`);
+        currentTemplate.promptList = promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item.trim()}`);
         saveTemplates();
         renderTemplateList();
         displayTemplateDetails(currentTemplate);
