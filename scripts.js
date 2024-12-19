@@ -17,6 +17,7 @@ const editTemplateInput = document.getElementById('edit-template-input');
 const editTagsInput = document.getElementById('edit-tags-input');
 const saveChangesButton = document.getElementById('save-changes-button');
 const deleteTemplateButton = document.getElementById('delete-template-button');
+const deleteTemplateButtonMain = document.getElementById('delete-template-button-main');
 const versionHistorySection = document.getElementById('version-history');
 const versionList = document.getElementById('version-list');
 const restoreVersionButton = document.getElementById('restore-version-button');
