@@ -23,9 +23,9 @@ function saveTemplates() {
     localStorage.setItem('templates', JSON.stringify(templates));
 }
 
-function renderTemplateList() {
+function renderTemplateList(filteredTemplates = templates) {
     templateList.innerHTML = '';
-    templates.forEach(template => {
+    filteredTemplates.forEach(template => {
         const listItem = document.createElement('li');
         listItem.textContent = `${template.template} (${template.tags})`;
         listItem.addEventListener('click', () => {
