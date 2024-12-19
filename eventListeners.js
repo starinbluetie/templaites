@@ -26,8 +26,9 @@ promptListInput.addEventListener('keydown', function(event) {
         const lines = promptListInput.value.split('\n');
         if (lines[lines.length - 1].trim() === '') return;
         const lastLine = lines[lines.length - 1];
-        const lastLineNumber = parseInt(lastLine.split('.')[0], 10) || 0;
+        const lastLineNumber = parseInt(lastLine.split('.')[0], 10) || lines.length;
         const newLineIndex = lastLineNumber + 1;
+        lines[lines.length - 1] = `${lastLineNumber}. ${lastLine.split('. ').slice(1).join('. ')}`;
         lines.push(`${newLineIndex}. `);
         promptListInput.value = lines.join('\n');
         const cursorPosition = promptListInput.value.length;
