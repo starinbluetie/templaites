@@ -115,13 +115,14 @@ sortSelect.addEventListener('change', function() {
 
 document.querySelectorAll('.tab-item').forEach(item => {
     item.addEventListener('click', function() {
+        const tabId = this.dataset.tab;
         document.querySelectorAll('.tab-content').forEach(section => {
             section.style.display = 'none';
         });
         document.querySelectorAll('.tab-item').forEach(tab => {
             tab.classList.remove('active');
         });
-        document.getElementById(this.dataset.tab).style.display = 'block';
+        document.getElementById(tabId).style.display = 'block';
         this.classList.add('active');
     });
 });
