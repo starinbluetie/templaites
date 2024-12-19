@@ -68,8 +68,8 @@ editPromptListInput.addEventListener('input', function() {
 });
 
 editPromptListInput.addEventListener('focus', function(event) {
-    if (promptListInput.value.trim() === '') {
-        promptListInput.value = '1. ';
+    if (editPromptListInput.value.trim() === '') {
+        editPromptListInput.value = '1. ';
     }
     adjustTextareaHeight(editPromptListInput);
 });
