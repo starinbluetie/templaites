@@ -1,4 +1,4 @@
-import { templates, saveTemplates, removeTemplate, displaySavedVersions } from './storage.js';
+import { templates, saveTemplates, removeTemplate } from './storage.js';
 import { renderTemplateList, displayTemplateDetails, collapseEditSection } from './template.js';
 import { currentTemplate, setCurrentTemplate } from './state.js';
 
@@ -151,17 +151,3 @@ document.querySelectorAll('.tab-item').forEach(item => {
         this.classList.add('active');
     });
 });
-
-function renderTemplateList(templateList, filteredTemplates = templates) {
-    templateList.innerHTML = '';
-    filteredTemplates.forEach(template => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${template.template} (${template.tags})`;
-        listItem.addEventListener('click', () => {
-            setCurrentTemplate(template);
-            displayTemplateDetails(template);
-            displaySavedVersions(template); // Display versions upon template selection
-        });
-        templateList.appendChild(listItem);
-    });
-}

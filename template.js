@@ -8,8 +8,6 @@ const editTagsInput = document.getElementById('edit-tags-input');
 const editPromptListInput = document.getElementById('edit-prompt-list-input');
 const versionHistorySection = document.getElementById('version-history');
 const versionList = document.getElementById('version-list');
-const versionDisplaySection = document.getElementById('version-display');
-const savedVersionList = document.getElementById('saved-version-list');
 
 export function renderTemplateList(templateList, filteredTemplates = templates) {
     templateList.innerHTML = '';
@@ -37,24 +35,6 @@ export function displayTemplateDetails(template) {
         versionItem.textContent = `Version ${index + 1}: ${version.template} (${version.tags})`;
         versionList.appendChild(versionItem);
     });
-}
-
-export function displaySavedVersions(template) {
-    savedVersionList.innerHTML = '';
-    template.versions.forEach((version, index) => {
-        const versionItem = document.createElement('li');
-        versionItem.textContent = `Versión ${index + 1}: ${version.template} (${version.tags})`;
-        versionItem.addEventListener('click', () => {
-            displayVersionDetails(version);
-        });
-        savedVersionList.appendChild(versionItem);
-    });
-    versionDisplaySection.style.display = 'block';
-}
-
-function displayVersionDetails(version) {
-    // Function to display details of the selected version
-    // Implement as needed to show version information
 }
 
 export function collapseEditSection() {
