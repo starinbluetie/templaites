@@ -27,7 +27,7 @@ export function displayTemplateDetails(template) {
     templatePreview.innerHTML = `<p>${template.template}</p><p>${template.tags}</p>`;
     editTemplateInput.value = template.template;
     editTagsInput.value = template.tags;
-    editPromptListInput.value = template.promptList.join('\n');
+    editPromptListInput.value = template.promptList.map(item => item.replace(/^\d+\.\s*/, '')).join('\n');
     versionHistorySection.style.display = 'block';
     versionList.innerHTML = '';
     template.versions.forEach((version, index) => {

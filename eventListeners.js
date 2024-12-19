@@ -68,11 +68,11 @@ saveChangesButton.addEventListener('click', function() {
         currentTemplate.versions.push({
             template: currentTemplate.template,
             tags: currentTemplate.tags,
-            promptList: [...currentTemplate.promptList]
+            promptList: currentTemplate.promptList.map(item => item.replace(/^\d+\.\s*/, ''))
         });
         currentTemplate.template = editTemplateInput.value;
         currentTemplate.tags = editTagsInput.value;
-        currentTemplate.promptList = promptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item.trim()}`);
+        currentTemplate.promptList = editPromptListInput.value.split('\n').map((item, index) => `${index + 1}. ${item.trim()}`);
         saveTemplates();
         renderTemplateList(templateList);
         displayTemplateDetails(currentTemplate);
