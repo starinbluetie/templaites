@@ -88,7 +88,9 @@ promptListInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         const lines = promptListInput.value.split('\n');
-        const newLineIndex = lines.length + 1;
+        const lastLine = lines[lines.length - 1];
+        const lastLineNumber = parseInt(lastLine.split('.')[0], 10) || 0;
+        const newLineIndex = lastLineNumber + 1;
         lines.push(`${newLineIndex}. `);
         promptListInput.value = lines.join('\n');
         const cursorPosition = promptListInput.value.length;
