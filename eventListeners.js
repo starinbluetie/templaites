@@ -74,7 +74,7 @@ editPromptListInput.addEventListener('focus', function(event) {
     if (promptListInput.value.trim() === '') {
         promptListInput.value = '1. ';
     }
-    adjustTextareaHeight(promptListInput);
+    adjustTextareaHeight(editPromptListInput);
 });
 
 saveChangesButton.addEventListener('click', function() {
