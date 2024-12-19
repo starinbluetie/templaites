@@ -110,6 +110,14 @@ button.cancel:hover {
     background-color: #999;
 }
 
+button.delete {
+    background-color: #e74c3c;
+    color: white;
+}
+button.delete:hover {
+    background-color: #c0392b;
+}
+
 /* Lists */
 ul {
     list-style: none;
