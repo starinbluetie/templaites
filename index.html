@@ -3,202 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page with Template List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
-        }
-        .container {
-            display: flex;
-            width: 100%;
-        }
-        .todo-list-section, .main-section {
-            flex: 1;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .todo-list-section {
-            background-color: #f9f9f9;
-            border-right: 1px solid #ddd;
-        }
-        .main-section {
-            background-color: #fff;
-        }
-        h2 {
-            margin-top: 0;
-        }
-        .todo-item {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #e7f3fe;
-            border: 1px solid #b3d4fc;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .edit-button, .delete-button {
-            margin-left: 10px;
-            cursor: pointer;
-        }
-        .category {
-            font-size: 0.9em;
-            color: #666;
-        }
-        .prompt-list {
-            margin-top: 10px;
-            padding-left: 20px;
-        }
-        .prompt-item {
-            margin: 5px 0;
-        }
-        .add-prompt-button {
-            margin-top: 10px;
-        }
-    </style>
+    <title>Organiza tus prompts y maximiza ChatGPT</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="todo-list-section">
-            <h2>Template List</h2>
-            <form id="todo-form">
-                <input type="text" id="todo-input" placeholder="Add a new template" required>
-                <input type="text" id="category-input" placeholder="Category" required>
-                <button type="submit">Add</button>
+    <header>
+        <h1>Organiza tus prompts y maximiza ChatGPT</h1>
+        <p>Crea, organiza y comparte tus prompts fácilmente</p>
+    </header>
+    <main>
+        <section id="create-template">
+            <h2>Creación de Plantillas</h2>
+            <form id="template-form">
+                <textarea id="prompt-input" placeholder="Escribe tu prompt aquí" required></textarea>
+                <input type="text" id="tags-input" placeholder="Etiquetas/Categorías" required>
+                <button type="submit">Guardar</button>
             </form>
-            <ul id="todo-list">
-                <!-- Template items will appear here -->
-            </ul>
-        </div>
-        <div class="main-section">
-            <h2>Template Details</h2>
-            <div id="task-details">
-                <!-- Template details will appear here -->
-                <p>Select a template to view details.</p>
-                <ol id="prompt-list" class="prompt-list">
-                    <!-- Prompts will appear here -->
-                </ol>
-                <button id="add-prompt-button" class="add-prompt-button" style="display:none;">Add Prompt</button>
-                <button id="edit-template-button" style="display:none;">Edit Template</button>
-                <button id="save-template-button" style="display:none;">Save Template</button>
+        </section>
+        <section id="edit-template" style="display:none;">
+            <h2>Edición de Plantillas</h2>
+            <div id="template-preview">
+                <!-- Vista previa del prompt -->
             </div>
-        </div>
-    </div>
-    <script>
-        const todoForm = document.getElementById('todo-form');
-        const todoInput = document.getElementById('todo-input');
-        const categoryInput = document.getElementById('category-input');
-        const todoList = document.getElementById('todo-list');
-        const taskDetails = document.getElementById('task-details');
-        const promptList = document.getElementById('prompt-list');
-        const editTemplateButton = document.getElementById('edit-template-button');
-        const addPromptButton = document.getElementById('add-prompt-button');
-        const saveTemplateButton = document.getElementById('save-template-button');
-
-        let currentTemplate = null;
-
-        function loadTemplates() {
-            const templates = JSON.parse(localStorage.getItem('templates')) || [];
-            templates.forEach(template => addTemplateToList(template));
-        }
-
-        function saveTemplates(templates) {
-            localStorage.setItem('templates', JSON.stringify(templates));
-        }
-
-        function addTemplateToList(template) {
-            const listItem = document.createElement('li');
-            listItem.classList.add('todo-item');
-            listItem.innerHTML = `
-                <span>${template.name}</span>
-                <span class="category">${template.category}</span>
-                <button class="delete-button">Delete</button>
-            `;
-            listItem.addEventListener('click', function() {
-                displayTemplateDetails(template);
-            });
-            listItem.querySelector('.delete-button').addEventListener('click', function(event) {
-                event.stopPropagation();
-                if (confirm('Are you sure you want to delete this template?')) {
-                    const templates = JSON.parse(localStorage.getItem('templates')) || [];
-                    const updatedTemplates = templates.filter(t => t.name !== template.name);
-                    saveTemplates(updatedTemplates);
-                    listItem.remove();
-                    taskDetails.innerHTML = '<p>Select a template to view details.</p>';
-                }
-            });
-            todoList.appendChild(listItem);
-        }
-
-        function displayTemplateDetails(template) {
-            currentTemplate = template;
-            taskDetails.innerHTML = `<h3>Template Details</h3><p>${template.name}</p><p>Category: ${template.category}</p>`;
-            promptList.innerHTML = '';
-            template.prompts.forEach(prompt => {
-                const promptItem = document.createElement('li');
-                promptItem.classList.add('prompt-item');
-                promptItem.textContent = prompt;
-                promptItem.addEventListener('click', function() {
-                    const newPromptText = prompt('Edit prompt:', prompt);
-                    if (newPromptText) {
-                        const promptIndex = template.prompts.indexOf(prompt);
-                        template.prompts[promptIndex] = newPromptText;
-                        saveTemplates(JSON.parse(localStorage.getItem('templates')).map(t => t.name === template.name ? template : t));
-                        displayTemplateDetails(template);
-                    }
-                });
-                promptList.appendChild(promptItem);
-            });
-            editTemplateButton.style.display = 'block';
-            addPromptButton.style.display = 'block';
-            saveTemplateButton.style.display = 'none';
-            editTemplateButton.onclick = function() {
-                const newTaskText = prompt('Edit template name:', template.name);
-                const newCategoryText = prompt('Edit category:', template.category);
-                if (newTaskText && newCategoryText) {
-                    template.name = newTaskText;
-                    template.category = newCategoryText;
-                    const templates = JSON.parse(localStorage.getItem('templates')) || [];
-                    const updatedTemplates = templates.map(t => t.name === template.name ? template : t);
-                    saveTemplates(updatedTemplates);
-                    taskDetails.innerHTML = `<h3>Template Details</h3><p>${newTaskText}</p><p>Category: ${newCategoryText}</p>`;
-                    loadTemplates();
-                }
-            };
-            addPromptButton.onclick = function() {
-                const newPromptText = prompt('Add new prompt:');
-                if (newPromptText) {
-                    template.prompts.push(newPromptText);
-                    saveTemplates(JSON.parse(localStorage.getItem('templates')).map(t => t.name === template.name ? template : t));
-                    displayTemplateDetails(template);
-                }
-            };
-        }
-
-        todoForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const taskText = todoInput.value.trim();
-            const categoryText = categoryInput.value.trim();
-            if (taskText && categoryText) {
-                const template = {
-                    name: taskText,
-                    category: categoryText,
-                    prompts: []
-                };
-                const templates = JSON.parse(localStorage.getItem('templates')) || [];
-                templates.push(template);
-                saveTemplates(templates);
-                addTemplateToList(template);
-                todoInput.value = '';
-                categoryInput.value = '';
-            }
-        });
-
-        loadTemplates();
-    </script>
+            <textarea id="edit-prompt-input" placeholder="Edita tu prompt aquí" required></textarea>
+            <input type="text" id="edit-tags-input" placeholder="Edita etiquetas/categorías" required>
+            <button id="save-changes-button">Guardar Cambios</button>
+            <button id="delete-template-button">Eliminar</button>
+        </section>
+        <section id="organize-templates">
+            <h2>Organización</h2>
+            <input type="text" id="filter-input" placeholder="Filtrar por etiquetas/categorías">
+            <select id="sort-select">
+                <option value="date">Ordenar por fecha de creación</option>
+                <option value="name">Ordenar por nombre</option>
+            </select>
+            <ul id="template-list">
+                <!-- Lista de plantillas -->
+            </ul>
+        </section>
+        <section id="version-history" style="display:none;">
+            <h2>Historial de Versiones</h2>
+            <ul id="version-list">
+                <!-- Lista de versiones anteriores -->
+            </ul>
+            <button id="restore-version-button">Restaurar Versión</button>
+        </section>
+        <section id="faq">
+            <h2>Preguntas Frecuentes</h2>
+            <p>Por llegar</p>
+        </section>
+        <section id="contact">
+            <h2>Contacto</h2>
+            <form id="contact-form">
+                <input type="text" id="name-input" placeholder="Tu nombre" required>
+                <input type="email" id="email-input" placeholder="Tu correo electrónico" required>
+                <textarea id="message-input" placeholder="Tu mensaje" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
 </body>
 </html>
