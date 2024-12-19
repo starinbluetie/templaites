@@ -111,14 +111,20 @@ document.addEventListener('keydown', function(event) {
 });
 
 restoreVersionButton.addEventListener('click', function() {
-    if (currentTemplate && currentTemplate.versions.length > 0) {
-        const lastVersion = currentTemplate.versions.pop();
-        currentTemplate.template = lastVersion.template;
-        currentTemplate.tags = lastVersion.tags;
-        currentTemplate.promptList = lastVersion.promptList;
-        saveTemplates();
-        renderTemplateList(templateList);
-        displayTemplateDetails(currentTemplate);
+    if (restoreVersionButton) {
+        restoreVersionButton.addEventListener('click', function() {
+        if (currentTemplate && currentTemplate.versions.length > 0) {
+            const lastVersion = currentTemplate.versions.pop();
+            currentTemplate.template = lastVersion.template;
+            currentTemplate.tags = lastVersion.tags;
+            currentTemplate.promptList = lastVersion.promptList;
+            saveTemplates();
+            renderTemplateList(templateList);
+            displayTemplateDetails(currentTemplate);
+        }
+            });
+    } else {
+        console.error('restoreVersionButton element not found');
     }
 });
 
