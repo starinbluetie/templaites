@@ -90,19 +90,25 @@ saveChangesButton.addEventListener('click', function() {
 
 deleteTemplateButton.addEventListener('click', function() {
     if (currentTemplate) {
-        templates = templates.filter(template => template !== currentTemplate);
-        saveTemplates();
-        renderTemplateList(templateList);
-        collapseEditSection();
+        const index = templates.indexOf(currentTemplate);
+        if (index > -1) {
+            templates.splice(index, 1);
+            saveTemplates();
+            renderTemplateList(templateList);
+            collapseEditSection();
+        }
     }
 });
 
 deleteTemplateButtonMain.addEventListener('click', function() {
     if (currentTemplate) {
-        templates = templates.filter(template => template !== currentTemplate);
-        saveTemplates();
-        renderTemplateList(templateList);
-        collapseEditSection();
+        const index = templates.indexOf(currentTemplate);
+        if (index > -1) {
+            templates.splice(index, 1);
+            saveTemplates();
+            renderTemplateList(templateList);
+            collapseEditSection();
+        }
     }
 });
 
