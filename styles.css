@@ -113,3 +113,25 @@ li {
     margin-bottom: 10px;
     background-color: #f9f9f9;
 }
+
+#version-display {
+    margin-bottom: 20px;
+}
+
+#saved-version-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#saved-version-list li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+#saved-version-list li:hover {
+    background-color: #e9e9e9;
+}
