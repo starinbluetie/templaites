@@ -9,6 +9,7 @@ const promptListInput = document.getElementById('prompt-list-input');
 const templateList = document.getElementById('template-list');
 const saveChangesButton = document.getElementById('save-changes-button');
 const deleteTemplateButton = document.getElementById('delete-template-button');
+const deleteTemplateButtonMain = document.getElementById('delete-template-button');
 const restoreVersionButton = document.getElementById('restore-version-button');
 const cancelEditButton = document.getElementById('cancel-edit-button');
 const filterInput = document.getElementById('filter-input');
@@ -88,6 +89,15 @@ saveChangesButton.addEventListener('click', function() {
 });
 
 deleteTemplateButton.addEventListener('click', function() {
+    if (currentTemplate) {
+        templates = templates.filter(template => template !== currentTemplate);
+        saveTemplates();
+        renderTemplateList(templateList);
+        collapseEditSection();
+    }
+});
+
+deleteTemplateButtonMain.addEventListener('click', function() {
     if (currentTemplate) {
         templates = templates.filter(template => template !== currentTemplate);
         saveTemplates();
